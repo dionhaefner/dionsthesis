@@ -1,0 +1,238 @@
+\chapter{Theoretical Analysis}
+\label{chap:analysis}
+In literature, flow across the equator is often treated in less detail than mid-latitude circulations, which is probably due to the fact that it is impossible to formulate a leading-order balance as simple as geostrophy. This in turn makes it hard to find simple analytical solutions and gain an intuition of the dominant mechanics in the equatorial regions. In order to understand the findings presented in \chapref{chap:cesm-runs}, it seemed necessary to review the equatorial processes from a more theoretical point of view, which is done in this chapter.
+
+\secref{sec:equatorial-theory} gives an introduction to the general nature of cross-equatorial flow and ties a first connection between potential vorticity, friction and viscosity, and the overturning. By considering the \ac{PV} balance at the equator, it is found that the presence of friction is indeed crucial to enable cross-equatorial flow. However, the efficiency of the \ac{PV} transformation is found to be \emph{independent} of the given viscosity to a leading order.
+
+\secref{sec:equatorial-shallow-water} describes a custom equatorial shallow-water model that is then used to test whether the observed dependency of the overturning on viscosity can be recreated in a highly idealized model. To this end, the response of the equatorial flow and inter-hemispheric mass balance to different viscosities and model resolutions is tested. It is found that neither a simple viscosity reduction, explicitly resolving equatorial eddies, nor an under-resolution of the western boundary layer leads to a similar response as in \acs{CESM}.
+
+
+\section{Theory of Cross-Equatorial Flow}
+\label{sec:equatorial-theory}
+As a starting point, the following sections present some pictures of cross-equatorial flow, and how exactly it connects to friction and viscosity.
+
+\secref{sec:equatorial-vorticity} describes how friction in general acts to enable cross-equatorial flow due to potential vorticity constraints. \secref{sec:killworth} then proceeds to analyze cross-equatorial flow quantitatively using a picture brought forward by \citet{killworth}.
+
+\subsection{Equatorial Vorticity Balance}
+\label{sec:equatorial-vorticity}
+Currents crossing the equator are strongly suppressed due to potential vorticity conservation constraints. This becomes most evident from the expression for \ac{PV} conservation in a layered ocean, \eqref{eq:pv-conservation-layer}:
+%
+\begin{equation}
+\Ddx\Pi_s = \Ddx\left(\frac{\zeta + f}{h}\right) = \frac{1}{h} \nabla_H\times \vec{\mathcal{F}}.
+\end{equation}
+%
+As the equator is approached, \(f\) becomes smaller and smaller until it vanishes at \ang{0} latitude, and \emph{changes its sign} as the flow penetrates into the opposite hemisphere. Since the layer height \(h\) is strictly positive, there are two possibilities how \eqref{eq:pv-conservation-layer} can be fulfilled:
+%
+\begin{enum}
+	\item \ac{PV} can actually be conserved across the equator by creating excessive relative vorticity \(\zeta\) (\ie through nonlinear effects) --- however, the resulting velocity shear will usually heavily alter the flow paths and prevent water from deeply penetrating the other hemisphere\sidenote[-3]{An exception to this is presented by \citet{nofbc2}, who show that topography such as the Mid-Atlantic Ridge may allow flow to cross the equator while conserving \ac{PV}, based on a model from \cite{anderson}.}; or
+	\item the advection of excess \ac{PV} along a streamline is balanced by a substantial amount of friction (\(\mathcal{F}\)), causing the \ac{PV} to change sign, until it joins the mid-latitude circulation.
+\end{enum}
+%
+
+Another way to recognize the processes that drive flow into the opposite hemisphere stems from a non-dimensional formulation of the vorticity equation given in \cite{bryan1963}. \citeauthor{bryan1963} assumes a lateral friction term of the form
+%
+\begin{equation}
+\nabla_H \times \vec{\mathcal{F}} = A_H \nabla^2 \zeta \approx A_H \nabla^2 v_x
+\end{equation}
+%
+as before, and assumes that the conversion of \ac{PV} happens predominantly inside western boundary currents. According to \citeauthor{bryan1963}, the steady-state vorticity balance in non-dimensional form can then be approximated as\sidenote[-2]{With non-dimensional coordinates \(x',y'\), depth-integrated velocities \(U,V\), and stream function \(\Psi\).}
+%
+\begin{equation}
+\underbrace{\varepsilon \left( U \zeta_x + V \zeta_y \right) \vphantom{\frac{\varepsilon}{\text{Re}}}}_{\mathclap{\text{Nonlinearity}}} %
++ \underbrace{V \vphantom{\frac{\varepsilon}{\text{Re}}}}_{\mathclap{\text{Coriolis}}} %
++ \underbrace{\sin(\pi y'/2) \vphantom{\frac{\varepsilon}{\text{Re}}}}_{\mathclap{\text{Wind stress}}} %
+=%
+\underbrace{\frac{\varepsilon}{\text{Re}} V^4 \Psi}_{\mathclap{\text{Friction}}}
+\end{equation}
+%
+where \(\varepsilon\) denotes the horizontal Ekman number, and \(\text{Re}\) the Reynolds number. From this formulation, it becomes clear that the sign of the lateral friction term \(\frac{\varepsilon}{\text{Re}} V^4 \Psi\) is only related to the sign of \(\Psi\) close to the boundary. Since we have assumed that the flow crosses in a western boundary current, the friction term \(\propto \Psi\) always has the same sign as the \(V\)-term\sidenote[-4]{Recall that the sign of the stream function is in fact tied to the direction of rotation: \(\Psi\) is positive for clockwise rotation, and negative otherwise.}, regardless if the crossing is north-to-south (\(V, \Psi < 0\)) or south-to-north (\(V, \Psi > 0\)). For the nonlinear term, no such argument can be made \emph{a priori}.
+
+\parabreak
+
+Both types of cross-equatorial flow (\ac{PV} conserving flow and flow in frictional balance) are studied in many models and applications throughout literature. In the upcoming sections, we shall assume that the second mode, which depends on friction, has the most relevance in the real ocean, based on a picture that was put forward in \cite{killworth} (see next section). However, we need to keep in mind that, in theory, \ac{PV} conserving modes are possible \citep{nofbc2}.
+
+\clearpage
+\subsection{The Killworth Model}
+\label{sec:killworth}
+A particularly interesting study of the dynamics of cross-equatorial geostrophic adjustment has been conducted by \citeauthorfull{killworth} \citep{killworth}.
+\sidefigure[Steady-state solutions of one-dimensional equatorial geostrophic adjustment.]{Two steady-state solutions (with different starting latitudes) of one-dimensional equatorial geostrophic adjustment. \acs{ODE} as in \cite{killworth}; solved with a shooting method.}[fig:killworth-ode]%
+{\importpgf{figures/cross-equatorial/killworth/}{killworth-h.pgf}\\[2ex]%
+\importpgf{figures/cross-equatorial/killworth/}{killworth-u.pgf}}[-1]%
+
+In the first part of his paper, \citeauthor{killworth} derives a set of nonlinear \acp{ODE} describing the long-time average solution of a dam-break scenario where water, starting with some height anomaly \(h\) from a latitude \(Y\) south of the equator, is released in an inviscid, one-dimensional ocean. He finds that the flow is able to penetrate at most two Rossby radii of deformation into the northern hemisphere, depending on the starting latitude \(Y\) (\figref{fig:killworth-ode}). In this scenario, \ac{PV} is conserved by creating excessive amounts of relative vorticity (\ie through the first mode as described in \secref{sec:equatorial-theory}), turning the flow into an eastward jet, until it cannot penetrate any further (layer height approaches zero). This shows that, in the absence of solid boundaries and friction, deeply penetrating cross-equatorial flow is impossible, or --- in other words --- that one-dimensional nonlinearities alone cannot enable a full-blown overturning.
+
+In the second part of the paper, \citeauthor{killworth} extends the model to a two-dimensional basin, and a lateral friction term is added. He proceeds to show that the circulation now spans the whole basin, because a western boundary current that is in frictional balance permits long migration of water parcels into the opposite hemisphere. By lowering the viscosity parameter, he finds a reduction of cross-equatorial flow in the interior, but not in the western boundary layer.
+
+This behavior can be understood by assuming that the flow occurs in a thin, strictly meridional western boundary layer in lateral friction balance\sidenote[-1]{This implies \(u=0\) and \(v_x \gg v_y\).}, \ie it can be described as a Munk layer (\cf \secref{sec:munk}). The dominant balance in the potential vorticity conservation equation for a layered ocean \eqref{eq:pv-conservation-layer} is then
+%
+\begin{equation} 
+\Ddx \Pi_s \propto \frac{1}{h} A_H v_{xxx}. \label{eq:munk-friction-balance}
+\end{equation}
+%
+Since the typical zonal length scale in a Munk layer \(\delta_M\) is given by \eqref{eq:munkwidth}, \ie
+%
+\begin{equation}
+\delta_M = \left(\frac{A_H}{\beta}\right)^{1/3},
+\end{equation}
+%
+the right hand side of \eqref{eq:munk-friction-balance} is of the order\sidenote{Assuming that the layer height \(h\) is approximately constant along stream lines.} \(\orderof{v} = V\). The left hand side of \eqref{eq:munk-friction-balance} (material derivative of \ac{PV}) involves a time derivative, and the total time spent in the boundary layer is \(\propto V^{-1}\). Thus, the total transformation of potential vorticity in the boundary current is of order \num{1} to a leading order. \emph{This implies that the magnitude of \(A_H\) does not influence the efficiency of \ac{PV} modification in a Munk layer in a first order approximation, as long as friction is present at all, and the Munk layer is resolved in the model.}
+
+\clearpage
+\section{An Equatorial Shallow-Water Model}
+\label{sec:equatorial-shallow-water}
+After these theoretical considerations, I wanted check whether the same behavior observed in the \acs{CESM} experiments from \chapref{chap:cesm-runs} can be reproduced by simply reducing viscosity in a highly idealized model\sidenote[-2]{As shown in the previous section, viscosity has no influence on a pure Munk layer --- however, it is not clear \emph{a priori} what happens when this layer is under-resolved, or how nonlinearities change the solution.}. For this purpose, I ran some additional experiments with a shallow-water model that I have developed, based on the models used in \cite{killworth} and \cite{kawase}. In particular, I wanted to obtain a similar dependence of total cross-equatorial transport and structure of the equatorial flow field on viscosity as observed in the Atlantic in my \ac{CESM} experiments (\secref{sec:obs-amoc}), while only modeling a single active layer of fluid with homogeneous velocities and density (as in \secref{sec:physics-layered}), and without any wind forcing. Instead, the model is forced by buoyancy only (a constant mass source in the north-western corner of the domain).
+
+I have specifically chosen the model equations and parameters to yield a solution that is somewhat similar to a long-term average of the deep branch of the \acs{AMOC}, while the upper branch is modeled implicitly by assuming that it always closes the meridional overturning. Like the real \ac{AMOC}, it is forced by a mass imbalance in the North\sidenote[-5]{Which is, however, assumed constant, to only observe the \emph{kinematic} effects of a reduced viscosity --- an assumption that is only a first order approximation of the real ocean.}, representing the creation of \ac{NADW}. However, I did not want to prescribe the magnitude of the cross-equatorial flow as in \eg \cite{edwards}. Hence, as a mass sink, I have chosen to implement uniform upwelling\sidenote[-1]{By simply removing water from the domain, implicitly assuming that it re-enters the \q{upper branch} of the basin instead.} proportional to the layer height anomaly as in \cite{kawase}, so a solution that stays entirely inside the northern hemisphere becomes possible.
+
+The following sections describe the equations that are solved by the model (\secref{sec:sw-equations}), and the experiments I have conducted, along with the observations I have made during the analysis (\secref{sec:sw-experiments}).
+
+\subsection{Model Equations}
+\label{sec:sw-equations}
+The shallow-water model I have implemented is basically a combination of the shallow-water models used in \cite{killworth} and \cite{kawase}, with an additional \ac{CESM}-style anisotropic friction term. \citeauthor{killworth} uses a non-dimensional unforced shallow-water model with lateral friction in Cartesian coordinates:
+%
+\sidedef{Killworth's model}{}{
+	\begin{align}
+		u_t + uu_x + vu_y - \frac{1}{2} yv + h_x &= A_H (u_{xx} + u_{yy}) \\
+		v_t + uv_x + vv_y + \frac{1}{2} yu + h_y &= A_H (v_{xx} + v_{yy}) \\
+		h_t + (uh)_x + (vh)_y &= 0
+	\end{align}
+}
+%
+with (non-dimensional) velocities \(u, v\); layer height \(h\); meridional position \(y\); and turbulent diffusivity \(A_H\). \citeauthor{kawase} on the other hand uses a forced shallow-water model with bottom friction in spherical coordinates:
+%
+\sidedef{Kawase's model}{}{
+	\begin{align}
+		u_t - 2 \Omega \sin \theta v + \frac{g}{R_e \cos\theta} \eta_\phi &= - \kappa u \\
+		v_t + 2 \Omega \sin \theta u + \frac{g}{R_e} \eta_\theta &= -\kappa v \\
+		\eta_t + \frac{H}{R_e \cos \theta} u_\phi + \frac{H}{R_e \cos\theta} (\cos\theta v)_\theta &= Q - \lambda \eta,
+	\end{align}
+}
+%
+with Coriolis parameter \(2\Omega \sin\theta\); Earth's radius \(R_e\); reduced gravity \(g\); bottom friction parameter \(\kappa\); background layer height \(H\) and height anomaly \(\eta\); a localized water source \(Q\); and a water sink parameter \(\lambda\) parameterizing diapycnal mixing. The source in this model is located at the north-western corner of the domain, and the water sink is modeled as an exponential decay term\sidenote[-2]{Or exponential growth for \(\eta < 0\), \ie a negative displacement relative to the undisturbed layer height.}.
+
+Combining these two models, I arrived at a non-dimensional, Cartesian formulation with buoyancy forcing, anisotropic lateral friction as in \ac{CESM}, and proper treatment of the convection term in the \(h\) equation:
+%
+\sidedef{Dion's Shallow-Water Model}{}{
+\begin{align}
+	u_t + uu_x + vu_y - \frac{1}{2}yv + h_x &= (A u_x)_x + (B u_y)_y \\
+	v_t + uv_x + vv_y + \frac{1}{2}yu + h_y &= (B v_x)_x + (A v_y)_y \label{eq:shallowwater} \\
+	h_t + (uh)_x + (vh)_y &= Q - \lambda (h-1),
+\end{align}
+}
+%
+with definitions as in the \citeauthor{killworth} model, but with an additional sink as in \cite{kawase}\sidenote[-1]{\(h-1 = \eta\), since the non-dimensional undisturbed layer height \(H' \equiv 1\) in the Killworth model.}. Note that this term adds a diapycnal contribution to the \ac{PV} conservation equation \eqref{eq:pv-conservation}, so \ac{PV} is not strictly conserved, even in the absence of friction (however, we assume this term to be small, since all experiments are in the low-damping regime). The buoyancy forcing is modeled as an explicit mass source \(Q\) in the north-western corner of the basin.
+
+For a description of the numerical implementation and verification of this model refer to \appendixref{appendix:shallow-water}.
+
+\subsection{Experimental Setup}
+\label{sec:sw-experiments}
+After reproducing some published results with my model to verify that it is working correctly (\appendixref{appendix:shallow-water}), I ran a total of three sets of simulations to investigate the equatorial dynamics in different scenarios:
+%
+\begin{enum} 
+\item High resolution, low forcing: In this first set, the model is forced by an explicit source \(Q\) in the north-western corner of the basin corresponding to a forcing of \SI{12}{\sv}. Between experiments, only the Munk layer viscosity \(\nu_M\) is changed (\(\nu_M = 0,\ 0.2,\ 2.0 \)). All other viscosity parameters as in the \ac{CESM} run \run{x3_default}. The model grid consists of \(60 \times 120\) equally spaced  grid cells.
+\item High resolution, high forcing: As the first set, but with a stronger forcing of \SI{48}{\sv}, to allow for more nonlinearities in the solution. All runs are initialized with the final state of the \(\nu_M = 0.2\) experiment from set 1. To make computations more efficient, the grid spacing is reduced around the equator and western boundary, and increased everywhere else (same total number of grid cells).
+\item Low resolution, low forcing: Four low-resolution simulations with Munk layer viscosities \num{e3}, \num{e4}, \num{e5}, and \SI{e6}{\metre\squared\per\second}. 20 equally spaced grid cells in \(x\)-direction, and 80 cells in \(y\)-direction, with a four times finer grid at the equator than at the northern and southern boundaries\sidenote[-3]{This grid was chosen to achieve a similar spatial resolution as in the \grid{x3} \ac{CESM} runs.}. Forcing as in set 1.
+\end{enum}
+%
+Furthermore, all experiments share the following setup:
+%
+\begin{items}
+	\item a rectangular basin that extends \SI{6000}{\kilo\metre} in zonal (\(x\)) and \SI{12000}{\kilo\metre} in meridional (\(y\)) direction, with the equator in the middle;
+	\item a dampening time scale \(\lambda^{-1}\) of 1 year, putting the experiments into the weak damping regime as defined in \cite{greatbatch}; and
+	\item an undisturbed layer height \(H\) of \SI{400}{\metre}, a reduced gravity \(g\) of \SI{0.02}{\metre\per\second\squared}, and a Coriolis parameter \(\beta\) of \SI{2e-11}{\per\second\per\metre}.
+\end{items}
+%
+All of these values were chosen with the deep branch of the \ac{AMOC} in mind, while still being sufficiently close to the studies in \cite{killworth} and \cite{greatbatch} to allow comparisons.
+
+The model is integrated forward using a finite volume solver for at least 1000 days, \ie approximately three damping time scales. To ensure stability and accuracy, the model uses adaptive time step control, with a typical time step lying in the order of 15 minutes. In every time step, an absolute solver precision of \num{e-8} in dimensionless units is enforced for both velocities and layer height.
+
+\clearpage
+\FloatBlock
+\subsection{Analysis}
+\subsubsection{Set 1: High resolution, low forcing}
+In%
+\sidefigure[Equatorial regions of the first set of shallow-water simulations.]{Equatorial regions of the first set of shallow-water simulations (with varying Munk layer viscosity). Shown are the streamlines, advection of \ac{PV} (shading), and contour of zero \ac{PV} (black line).}[fig:toy-flow-1]{\importpgf{figures/cross-equatorial/toy-flow}{set1.pgf}}[-2]%
+%
+this setup, the relatively weak forcing keeps nonlinearities small. As a consequence, all solutions are very similar, apart from a varying boundary layer width (which is, after all, \(\propto A_H^{1/3}\)) and different levels of numerical (dispersive) noise. The resulting steady-state solution is symmetric around the equator, similar to the weak-damping solutions in \cite{greatbatch} (\figref{fig:toy-steady-state}; see also \appendixref{appendix:shallow-water}), and flow seems to cross the equator in the western boundary layer only. The structure of the steady-state solution seems largely indifferent to viscosity (\figref{fig:toy-flow-1}) --- higher viscosities only lead to a wider boundary layer, and a more pronounced recirculation as predicted by the Munk solution, \ie \eqref{eq:munk-solution-noslip}.
+
+\begin{figure}[p]
+	\centering
+	\importpgf{figures/cross-equatorial/toy-steady-state}{toy-steady-state.pgf}
+	\caption[Steady-state solution of the shallow-water model for high resolution and low forcing.]{The steady-state solution in the high resolution, low forcing case is symmetric around the equator. Contours and quivers in the forcing region / western boundary partly omitted. Shading left: layer height anomaly; right: velocity magnitude. Coordinates in non-dimensional units.}
+	\label{fig:toy-steady-state}
+\end{figure}
+
+The amount of water \(H_\text{south}\) that manages to penetrate deep into the southern hemisphere can be used as a diagnostic for the \enquote{overturning} in the model, by simply evaluating a mass integral over some southern region, \ie%
+\sidefigure[Hemispheric mass balance for set 1 of the shallow water experiments.]{The steady-state mass balance between North and South seems to be largely independent of viscosity.}[fig:southern-water-1]{\importpgf{figures/cross-equatorial/southern-water}{set1.pgf}}[12]%
+%
+\begin{equation}
+	H_\text{south} = \int_{x_w}^{x_e} \int_{y_s}^{y^*} h \dx{y} \dx{x},
+\end{equation}
+%
+with the layer height \(h\), \(x_w, x_e, y_s\) denoting the position of the western, eastern, and southern boundary, respectively, and some bounding latitude \(y^*\) that separates north from south. Since the observed equatorial features tend to extend quite far into both hemispheres (\figref{fig:toy-steady-state}), I have chosen \(y^* = -10\) (non-dimensional; in multiples of the Rossby radius of deformation). A better estimate for the overturning that is comparable between different scenarios is the mass ratio between northern and southern parts of the domain, \ie \(H_\text{south} / H_\text{north}\). Calculating this value for every experiment reveals that the steady-state mass balance is indeed quite stable around \SI{7(1)}{\percent} for any Munk layer viscosity (\figref{fig:southern-water-1}), especially for the two runs with a non-vanishing Munk layer. However, it seems that higher viscosities lead to a \emph{weaker} overturning, which is in contradiction with the findings of \chapref{chap:cesm-runs}. It is also observed that higher viscosities lead to a delayed reaction of the southern part of the basin, \ie longer overall time scales.
+
+\clearpage
+\subsubsection{Set 2: High resolution, high forcing}
+In%
+\sidefigure[Equatorial regions of the second set of shallow-water simulations.]{Equatorial regions of the second set of shallow-water simulations (with varying Munk layer viscosity). Shown are the streamlines, advection of \ac{PV} (shading), and contour of zero \ac{PV} (black line).}[fig:toy-flow-2]{\importpgf{figures/cross-equatorial/toy-flow}{set2.pgf}}%
+%
+this scenario, the forcing strength has been quadrupled to increase velocity and height anomaly scales, which increases the nonlinearity of the solution. Indeed, while the overall structure of the solution is still the same as in the first scenario, the experiment without a Munk layer now features a number of eddies that constantly emerge in the equatorial region near the western boundary, travel southward, and dissipate. This is also visible in \figref{fig:toy-flow-2}, where the line of zero \ac{PV} is visibly distorted close to the western boundary.
+
+The inter-hemispheric mass balance (\figref{fig:southern-water-2}) reveals that all experiments converge to roughly the same steady-state, with differences of the order of \SI{1}{\permille}, which also seems to be roughly the same steady-state that the solution was initialized with (final state of the \(\nu_M=0.02\) experiment from set 1). Strictly speaking, the experiment with the highest viscosity \emph{does} lead to the largest amount of southern water after \SI{2200}{\day}, but differences are so small that this might as well change once more when integrating for even longer times.
+\sidefigure[Hemispheric mass balance for set 2 of the shallow water experiments.]{Even for nonlinear solutions, the steady-state mass balance between North and South seems to be independent of viscosity.}[fig:southern-water-2]{\importpgf{figures/cross-equatorial/southern-water}{set2.pgf}}[12]
+
+It seems curious that the low-viscosity run from set 1 was clearly set apart from the other experiments (\figref{fig:southern-water-1}), while this is not the case here. However, it is important to recall that I have also introduced a scaled numerical grid before running the experiments of set 2, which becomes finer near the equator and \emph{the western boundary}. My hypothesis to explain the observed behavior is thus that the western boundary layer was not fully resolved in the low-viscosity run of set 1, while it is well-resolved in set 2 due to the finer grid spacing at the western boundary.
+
+Hence, it seems that a fully resolved boundary layer \emph{always leads to an identical hemispheric mass balance in the steady-state}, regardless of nonlinearities (while during spin-up, the system reacts considerably faster with lower viscosities, which might be an important factor in the real ocean / \ac{CESM}).
+
+\clearpage
+\FloatBlock
+\subsubsection{Set 3: Low resolution, low forcing}
+
+This%
+\sidefigure[Height field of a low-viscosity shallow-water experiment.]{Lowering viscosity creates zonal re-circulations in the equatorial band. Shown is the smoothed layer height anomaly.}[fig:sw-height-lowvisc]{\importpgf{figures/cross-equatorial/toy-height}{toy-height-lowvisc.pgf}}%
+%
+set of simulations was deliberately run with a low spatial resolution to test the effects of under-resolving the western boundary layer. This creates excessive amounts of numerical noise, as also seen in the \ac{CESM} experiments --- thus, all variables have been smoothed with a boxcar filter in both dimensions before post-processing. 
+
+\begin{figure}
+	\begin{sidecaption}[Equatorial flow for shallow water experiment set 3.]{The equatorial flow pattern shows a distinct dependency on viscosity. Shading: \ac{PV} advection (different scale for each solution).}[fig:toy-flow-3]
+		\antimpjustification
+		\importpgf{figures/cross-equatorial/toy-flow}{set3.pgf}
+	\end{sidecaption}
+\end{figure}
+
+Compared to the symmetric solutions obtained in set 1 and 2, the structure of the solution changes considerably in the low-viscosity runs (\figref{fig:sw-height-lowvisc}). The symmetry around the equator is broken, and, interestingly, the largest effect is seen in the circulation of the \emph{northern} hemisphere. Part of the flow crosses in the western boundary, but large parts of the flow do not make it across the equator, and are deflected eastward instead. When hitting the eastern boundary, this flow turns southward, and is deflected to the west by the equator. A similar process is observed \emph{after} the flow has crossed the equator, but fails to penetrate deeply into the southern hemisphere. It is deflected eastward until hitting the eastern boundary, where it dumps excess \ac{PV}, and joins the southern circulation (\figref{fig:toy-flow-3}). It seems odd that processes at the \emph{eastern} boundary actually manage to transform \ac{PV} in the same way as the western boundary, since it is analytically impossible to find a stable solution that balances friction and planetary vorticity at the eastern boundary \citep{pedloskyoct}. Possible explanations for the observed behavior could be:
+%
+\begin{enum}
+\item The diapycnal term in the \ac{PV} conservation equation \eqref{eq:pv-conservation} becomes important in this region and acts to remove some potential vorticity;
+\item Strong numerical noise may lead to an inaccurate solution; or
+\item Calculating relative vorticity during post-processing is quite inaccurate for low-resolution grids, and \ac{PV} \emph{could} in fact be conserved. In this case, the observed re-circulation would be purely inertial, which is a well-known solution (the Fofonoff mode, see \citebook{pedloskyoct}). 
+\end{enum}
+%
+Thus, even though somewhat similar processes are observed in the Atlantic in my \ac{CESM} experiments for low viscosities (\figref{fig:amoc-velocity}), it is doubtful how realistic the interactions at the eastern boundary are modeled in this set of experiments.
+
+\parabreak
+
+The inter-hemispheric mass balance for this set seems curious, too (\figref{fig:southern-water-3}). Apparently, an under-resolved Munk layer does indeed lead to a \emph{much larger} amount of water that crosses the equator and reaches far south, as already suspected when comparing the results from set 1 and 2. While the high viscosity experiments lead to a mass balance that is similar to that of set 1, the low viscosity runs exceed it significantly. My only explanation for this observation is that, since northern water is effectively trapped in the equatorial region, there is simply more opportunity for a large portion of the flow to actually cross the equator, be it at the western boundary or in the interior, before it is removed from the basin.
+
+\begin{figure}
+	\begin{sidecaption}[Hemispheric mass balance for set 3 of the shallow water experiments.]{The \emph{lower} the viscosity, the \emph{more} water reaches far south in my shallow water model. Division between north and south at \num{10} deformation radii south of the equator.}[fig:southern-water-3]
+		\antimpjustification
+		\importpgf{figures/cross-equatorial/southern-water}{set3.pgf}
+	\end{sidecaption}
+\end{figure}
+
+\subsubsection{Summary}
+Albeit my buoyancy-forced shallow water model has shown some interesting features, it has eventually failed to reproduce the dependency of the \ac{MOC} on viscosity as seen in the \ac{CESM} experiments of \chapref{chap:cesm-runs} (\ie a slightly reduced transport for reduced viscosities), even when equatorial eddies were explicitly resolved (set 2) or when the equatorial Munk layer was under-resolved (set 3).
+
+I thus conclude that neither of the examined effects effects%
+%
+\sidenote{\Ie \\[1ex]
+	\begin{marginenum}
+		\item direct response to changed viscosity, 
+		\item simple nonlinearities, 
+		\item under-resolution of the western boundary layer.
+	\end{marginenum}
+} %
+%
+is responsible for the observed response of \ac{CESM}. Further possible candidates that may cause the observed dependency are \eg topography, interactions between multiple layers, atmospheric forcing, or simply the fact that the \ac{NADW} forcing is not constant (since it depends both explicitly on time through \eg seasonal forcing and a on the actual cross-equatorial flow itself). Hence, further work seems necessary to identify the dominant processes in \ac{CESM}; some possible modifications are presented in \secref{sec:outro-moc-viscosity}.
