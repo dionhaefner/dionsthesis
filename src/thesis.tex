@@ -16,7 +16,6 @@
 %-----------------------------------------------
 
 \documentclass[twoside,11pt,a4paper,openany]{dionsthesis}
-
 \usepackage{morewrites}
 
 % Language setup
@@ -57,10 +56,9 @@
 \pagenumbering{gobble}
 \hypersetup{pageanchor=false}
 \include{frontmatter/titlepage}
-\include{frontmatter/cover}
+\clearpage
 \include{frontmatter/titleback}
 \cleardoublepage
-\hypersetup{pageanchor=True}
 \pagenumbering{roman}
 \pagestyle{simple}
 \include{frontmatter/acknowledgments}
@@ -79,6 +77,7 @@
 \mainmatter
 \bookmarksetup{startatroot}
 \pagenumbering{arabic}
+\hypersetup{pageanchor=True}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 
 %-----------------------------------------------

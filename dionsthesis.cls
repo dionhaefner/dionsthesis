@@ -108,10 +108,9 @@
 \colorlet{parttitle}{reddish}
 \colorlet{chaptitle}{reddish}
 \colorlet{partnum}{black}
-\colorlet{urlcolor}{blueish}
-\colorlet{tocchapnum}{blueish}
-\colorlet{bar}{reddish}
-\colorlet{citecolor}{blueish}
+\colorlet{urlcolor}{black}
+\colorlet{tocchapnum}{reddish}
+\colorlet{citecolor}{black}
 \colorlet{linkcolor}{black}
 \colorlet{margincolor}{darkergray}
 
@@ -690,8 +689,8 @@
 	bibstyle=authoryear,dashed=false, % dashed: substitute rep. author with ---
 	sorting=nyt, % name, year, title
 	maxbibnames=3, % default: 3, et al.
-	backref=true,%
 	natbib=true, % natbib compatibility mode (\citep and \citet still work)
+	backref=true,
 	url=false
 }{biblatex}
 \RequirePackage{biblatex}
