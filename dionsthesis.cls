@@ -1,14 +1,19 @@
 %%
 %% Dion's LaTeX Thesis Class
-%% heavily based on UiO Thesis and classicthesis
+%% heavily based on UiO Thesis and somewhat on classicthesis.
 %%
 
 \ProvidesClass{dionsthesis}
 \NeedsTeXFormat{LaTeX2e}
 
+\RequirePackage{ifthen}
+\newboolean{@minionpro}
+\DeclareOption{minionpro}{\setboolean{@minionpro}{true}}
+
 % Based on the memoir class
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{memoir}}
-\ProcessOptions
+\ExecuteOptions{openany}
+\ProcessOptions\relax
 \LoadClass{memoir}
 
 %%
@@ -21,8 +26,13 @@
 \RequirePackage{etoolbox}
 \RequirePackage{xparse}
 
-\RequirePackage{MnSymbol}
-\RequirePackage[mathlf,footnotefigures]{MinionPro}
+\ifthenelse{\boolean{@minionpro}}{%
+	\RequirePackage{MnSymbol}
+	\RequirePackage[mathlf,footnotefigures]{MinionPro}
+}{%
+	\RequirePackage[osf]{libertine}
+	\RequirePackage[libertine]{newtxmath}
+}
 
 \RequirePackage{FiraSans}
 \DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\sffamily\MakeTextUppercase{#1}}}
@@ -126,77 +136,6 @@
 
 \RequirePackage{tikz}
 \RequirePackage{tikz-3dplot}
-
-% Matplotlib PGF figure caching
-\RequirePackage{standalone}
-
-\pdfsuppresswarningpagegroup=1
-
-\edef\@figdir{_figurecache}
-\edef\@pgfrootdir{figures}
-\newcommand\setpgfroot[1]{\def\@pgfrootdir{#1}}
-\let\oldpgfimage\pgfimage
-\renewcommand{\pgfimage}[2][]{\oldpgfimage[#1]{\@pgfrootdir/#2}}
-
-\newcommand{\@pgfpreamble}[1]{%
-	\unexpanded{%
-		\documentclass[class=dionsthesis]{standalone}^^J
-		\setpgfroot{#1}%
-	}%
-}
-
-\newcounter{@pgfcounter}
-\newwrite\@pgfout
-\newread\@pgfin
-
-\newcommand{\importpgf}[3][]{%
-	\IfFileExists{#2/#3}{}{\ClassError{dionsthesis}{importpgf: File not found}{File #2/#3 not found}}%
-	\edef\@figfile{\jobname-\the@pgfcounter}%
-	\providecommand{\@writetempfile}{}%
-	\renewcommand{\@writetempfile}[1]%
-	{%
-		\immediate\openout\@pgfout=##1%
-		\immediate\write\@pgfout{\@pgfpreamble{#2}}%
-		\immediate\write\@pgfout{\string\begin{document}}%
-		\immediate\openin\@pgfin=#2/#3%
-		\begingroup\endlinechar=-1%
-			\loop\unless\ifeof\@pgfin%
-				\readline\@pgfin to \@fileline%
-				\ifx\@fileline\@empty\else%
-					\immediate\write\@pgfout{\@fileline}%
-				\fi%
-			\repeat%
-		\endgroup%
-		\immediate\closein\@pgfin%
-		\immediate\write\@pgfout{\string\end{document}}%
-		\immediate\closeout\@pgfout%
-	}%
-	\def\@compile%
-	{%
-		\immediate\write18{pdflatex -interaction=batchmode -output-directory="\@figdir" \@figdir/\@figfile.tex}%
-	}%
-	\IfFileExists{\@figdir/\@figfile.pdf}%
-	{%
-		\@writetempfile{\@figdir/tmp.tex}%
-		\edef\@hashold{\pdfmdfivesum file {\@figdir/\@figfile.tex}}%
-		\edef\@hashnew{\pdfmdfivesum file {\@figdir/tmp.tex}}%
-		\ifnum\pdfstrcmp{\@hashold}{\@hashnew}=0%
-			\relax%
-		\else%
-			\@writetempfile{\@figdir/\@figfile.tex}%
-			\@compile%
-		\fi%
-	}%
-	{%
-		\@writetempfile{\@figdir/\@figfile.tex}%
-		\@compile%
-	}%
-	\IfFileExists{\@figdir/\@figfile.pdf}%
-	{\includegraphics[#1]{\@figdir/\@figfile.pdf}}%
-	{\errmessage{Error during compilation of figure #2/#3}}%
-	\stepcounter{@pgfcounter}%
-}
-
 
 %%
 %% Math
@@ -444,8 +383,7 @@
 		}
 	}{\end{list}}
 
-\newcommand{\doublechevronright}{\raisebox{\depth}{\rotatebox{-90}{\ensuremath\sqdoublefrown}}}
-\newcommand{\listbullet}{\small\ensuremath\filledtriangleright}
+\newcommand{\listbullet}{\small\ensuremath\blacktriangleright}
 
 % Itemized list
 \newenvironment{items}{%
@@ -773,6 +711,8 @@
 % break also on hyphens inside the \url command
 \def\UrlBreaks{\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]%
 	\do\)\do\,\do\?\do\'\do+\do\=\do\#\do-} % \do- is new!
+
+%\RequirePackage[pageref]{backref}
 
 \RequirePackage{relsize}
 \urlstyle{sf}

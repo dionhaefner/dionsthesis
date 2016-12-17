@@ -15,16 +15,18 @@
 %   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %-----------------------------------------------
 
-\documentclass[twoside,11pt,a4paper,openany]{dionsthesis}
-\usepackage{morewrites}
+\documentclass[a4paper,11pt,twoside,openany,minionpro]{dionsthesis}
 
 % Language setup
 \usepackage[german,american]{babel}
 \setquotestyle{american}
 
 % Additional preamble files
+\input{preamble/pgfcache}
 \input{preamble/listings}
 \input{preamble/misc}
+
+\usepackage{morewrites}
 
 \graphicspath{{figures/}}
 
