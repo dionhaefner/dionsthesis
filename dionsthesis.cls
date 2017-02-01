@@ -30,11 +30,12 @@
 	\RequirePackage{MnSymbol}
 	\RequirePackage[mathlf,footnotefigures]{MinionPro}
 }{%
-	\RequirePackage[osf]{libertine}
+	\RequirePackage{libertine}
 	\RequirePackage[libertine]{newtxmath}
+	\useosf
 }
 
-\RequirePackage{FiraSans}
+\RequirePackage[osf]{FiraSans}
 \DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\sffamily\MakeTextUppercase{#1}}}
 \DeclareRobustCommand{\spacedlowsmallcaps}[1]{\textls[80]{\scshape\sffamily\MakeTextLowercase{#1}}}
 \DeclareRobustCommand{\sfcaps}[1]{{\scshape\sffamily\MakeTextLowercase{#1}}}
