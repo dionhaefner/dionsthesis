@@ -44,7 +44,6 @@
 \newfont{\chapnum}{eurb10 scaled 7000}
 
 \RequirePackage[final,babel]{microtype}
-%\microtypesetup{expansion=false}%
 
 % Creates an fourier ornament. Args: fontsize, lineheight, char
 \RequirePackage{fourier-orns}
@@ -198,13 +197,8 @@
 }
 
 % Section style
-%\let\oldsection\section
-%\renewcommand*{\section}{%
-%	\secdef{\clearpage\oldsection}{\oldsection*}%
-%}%
-
 \setsecheadstyle{\raggedright\large\spacedlowsmallcaps}
-\setsecnumformat{\oldstylenums{\csname the#1\endcsname}\quad}
+\setsecnumformat{\csname the#1\endcsname\quad}
 \setbeforesecskip{-8ex}
 \setaftersecskip{4ex}
 \setsubsecheadstyle{\raggedright\normalsize\itshape\sffamily}
@@ -327,6 +321,8 @@
 \RequirePackage{titletoc}
 
 %% hack \chapter to automatically add mini TOCs
+\newcommand{\chaptertocheading}{Contents}
+
 \let\oldchapter=\chapter%
 \renewcommand*{\chapter}{%
 	\secdef{\Chap}{\ChapS}%
@@ -335,7 +331,7 @@
 \newcommand\Chap[2][]{%
 	\cleartoevenpage[\thispagestyle{empty}]
 	\vspace*{5em}
-	\section*{Contents}
+	\section*{\chaptertocheading}
 	\startcontents[chapters]
 	\printcontents[chapters]{}{0}{\setlength{\parskip}{0pt}\addtocontents{ptc}{\protect\setcounter{tocdepth}{2}}}
 	\oldchapter[#1]{#2}
