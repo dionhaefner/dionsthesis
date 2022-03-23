@@ -7,13 +7,20 @@
 \NeedsTeXFormat{LaTeX2e}
 
 \RequirePackage{ifthen}
-\newboolean{@minionpro}
-\DeclareOption{minionpro}{\setboolean{@minionpro}{true}}
+\RequirePackage{xkeyval}
 
-% Based on the memoir class
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{memoir}}
-\ExecuteOptions{openany}
-\ProcessOptions\relax
+\newboolean{@minionpro}
+\def\@maincolor{}
+
+\DeclareOptionX{minionpro}[false]{\setboolean{@minionpro}{#1}}
+\DeclareOptionX{maincolor}[CD2A3D]{\def\@maincolor{#1}}
+
+% Pass unused options to memoir class
+\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{memoir}}
+
+\ExecuteOptionsX{}
+\ProcessOptionsX\relax
+
 \LoadClass{memoir}
 
 %%
@@ -36,9 +43,9 @@
 }
 
 \RequirePackage[osf]{FiraSans}
-\DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\sffamily\MakeTextUppercase{#1}}}
-\DeclareRobustCommand{\spacedlowsmallcaps}[1]{\textls[80]{\scshape\sffamily\MakeTextLowercase{#1}}}
+
 \DeclareRobustCommand{\sfcaps}[1]{{\scshape\sffamily\MakeTextLowercase{#1}}}
+\DeclareRobustCommand{\spacedlowsmallcaps}[1]{\textls[40]{\sfcaps{#1}}}
 
 \RequirePackage[scale=.85]{FiraMono}
 
@@ -46,7 +53,7 @@
 
 \RequirePackage[final,babel]{microtype}
 
-% Creates an fourier ornament. Args: fontsize, lineheight, char
+% Creates a fourier ornament. Args: fontsize, lineheight, char
 \RequirePackage{fourier-orns}
 \newcommand*{\fourierOrnament}[3]{{%
 		\fontencoding{U}\fontfamily{futs}\fontsize{#1}{#2}\selectfont\char#3}}
@@ -110,16 +117,16 @@
 
 \definecolor{halfgray}{gray}{0.55}
 \definecolor{darkergray}{gray}{0.05}
-\definecolor{reddish}{HTML}{CD2A3D}
+\definecolor{highlight}{HTML}{\@maincolor}
 \definecolor{greenish}{HTML}{008230}
 \definecolor{blueish}{HTML}{0052A5}
 
 \colorlet{chapnum}{halfgray}
-\colorlet{parttitle}{reddish}
-\colorlet{chaptitle}{reddish}
+\colorlet{parttitle}{highlight}
+\colorlet{chaptitle}{highlight}
 \colorlet{partnum}{black}
 \colorlet{urlcolor}{black}
-\colorlet{tocchapnum}{reddish}
+\colorlet{tocchapnum}{highlight}
 \colorlet{citecolor}{black}
 \colorlet{linkcolor}{black}
 \colorlet{margincolor}{darkergray}
@@ -145,9 +152,9 @@
 \RequirePackage{gensymb}
 \RequirePackage{mathtools}
 \RequirePackage{siunitx}
-\sisetup{% 
+\sisetup{%
 	mode=math,
-	separate-uncertainty,        
+	separate-uncertainty,
 }
 
 \RequirePackage[e]{esvect}
@@ -156,7 +163,7 @@
 
 \renewcommand*{\memdskips}{
 	\addtolength{\abovedisplayskip}{5pt}%
-	\addtolength{\abovedisplayshortskip}{15pt}%
+	\addtolength{\abovedisplayshortskip}{10pt}%
 	\addtolength{\belowdisplayskip}{5pt}%
 	\addtolength{\belowdisplayshortskip}{5pt}}
 
@@ -175,13 +182,13 @@
 \nopartblankpage
 \renewcommand{\partnamefont}{\normalfont\LARGE}
 \renewcommand{\partnumfont}{\LARGE\normalfont\MakeUppercase}
-\renewcommand{\parttitlefont}{\color{parttitle}\huge}
+\renewcommand{\parttitlefont}{\color{parttitle}\huge\sffamily}
 \renewcommand{\printpartname}{\begin{whole}\centering\partnamefont\partname}
 \renewcommand{\printpartnum}{\partnumfont\thepart\end{whole}}
-\renewcommand{\printparttitle}[1]{\begin{whole}\centering\parttitlefont\spacedallcaps{#1}\end{whole}}
+\renewcommand{\printparttitle}[1]{\begin{whole}\centering{\parttitlefont#1}\end{whole}}
 
 % Chapter style
-\newcommand{\chapfont}[1]{\color{chaptitle}\LARGE\spacedallcaps{#1}}
+\newcommand{\chapfont}[1]{\color{chaptitle}\LARGE\sffamily#1}
 \makechapterstyle{margin}{%
 	\setlength{\beforechapskip}{0pt}
 	\renewcommand{\printchaptername}{}
@@ -245,8 +252,8 @@
 \makeoddfoot{fancyheadings}{}{}{}
 \makepsmarks{fancyheadings}{%
 	\def\chaptermark##1{%
-		\markboth{\spacedlowsmallcaps{##1}}%
-				 {\spacedlowsmallcaps{##1}}%
+		\markboth{\sffamily\textbf{##1}}%
+				 {\sffamily\textbf{##1}}%
 		}%
 	\def\sectionmark##1{%
 		\markright{\normalfont\sffamily\thesection~##1}%
@@ -262,27 +269,6 @@
 
 % Table of Contents
 \maxtocdepth{section}
-
-%% hack \part to allow small caps in TOC
-\RequirePackage{ifpdf}
-\let\oldpart=\part%
-\renewcommand*{\part}{%
-	\secdef{\Part}{\PartS}%
-}
-\newcommand\PartS[1]{ % make sure \part* is added to the TOC while being unnumbered
-	\cleartooddpage[\thispagestyle{empty}]%
-	\renewcommand{\printpartname}{\relax}
-	\renewcommand{\printpartnum}{\relax}
-	\part{#1}
-}
-\newcommand\Part[2][]{%
-	\ifpdf\pdfstringdefDisableCommands{\let\thepart\@gobbletwo}%
-	\cleartooddpage[\thispagestyle{empty}]%
-	\oldpart[\texorpdfstring{\spacedlowsmallcaps{#1}}{#1}]{#2}%
-	\else%
-	\oldpart[\spacedlowsmallcaps{#1}]{#2}%
-	\fi%
-}
 
 \renewcommand{\cftpartfont}{\large}
 \renewcommand{\cftpartaftersnumb}{}
@@ -362,7 +348,6 @@
     \setlength{\leftmargin}{3ex}
     \setlength{\itemindent}{0pt}
     \usecounter{enumi}
-    \slshape
   }
 }{\end{list}}
 
@@ -376,7 +361,6 @@
 			\setlength{\leftmargin}{4ex}
 			\setlength{\itemindent}{0pt}
 			\usecounter{enumi}
-			\slshape
 		}
 	}{\end{list}}
 
@@ -404,7 +388,6 @@
 			\setlength{\leftmargin}{3ex}
 			\setlength{\itemindent}{0ex}
 			\usecounter{enumi}
-			\slshape
 		}%
 	\mpjustification%
 	}{\end{list}}
@@ -474,6 +457,7 @@
 		\setlength{\belowdisplayshortskip}{0pt}%
 		\setlength{\abovedisplayskip}{0pt}%
 		\setlength{\abovedisplayshortskip}{0pt}%
+		\strictpagechecktrue%
 		\mpjustification%
 		\marginparfont\color{margincolor}#2%
 	}[#1\onelineskip]%
@@ -502,7 +486,7 @@
 	}%
 	\marginelement{%
 		\setlength{\parskip}{0pt}%
-		{\color{black}\spacedallcaps{#1}}\newline#2%
+		{\color{black}\spacedlowsmallcaps{#1}}\newline#2%
 	}%
 	\vspace{\belowdisplayskip}%\noindent%
 }
@@ -561,14 +545,13 @@
 % Whole environment
 \newenvironment{whole}{%
   \centering
-  \strictpagechecktrue
   \begin{adjustwidth*}{0em}{-\wholemargin}
   \strictpagechecktrue
   \checkoddpage
   \ifoddpage%
-    \raggedright
+    \RaggedRight
   \else%
-    \raggedleft
+    \RaggedLeft
   \fi%
 }{%
   \end{adjustwidth*}
@@ -703,7 +686,7 @@
 	plainpages=false
 }
 
-\RequirePackage{autonum}
+% \RequirePackage{autonum}
 \RequirePackage[depth=2]{bookmark}
 % break also on hyphens inside the \url command
 \def\UrlBreaks{\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]%
