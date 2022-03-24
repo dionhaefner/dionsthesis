@@ -10,9 +10,10 @@
 \RequirePackage{xkeyval}
 
 \newboolean{@minionpro}
+\setboolean{@minionpro}{false}
 \def\@maincolor{}
 
-\DeclareOptionX{minionpro}[false]{\setboolean{@minionpro}{#1}}
+\DeclareOptionX{minionpro}{\setboolean{@minionpro}{true}}
 \DeclareOptionX{maincolor}[CD2A3D]{\def\@maincolor{#1}}
 
 % Pass unused options to memoir class
@@ -308,7 +309,7 @@
 \RequirePackage{titletoc}
 
 %% hack \chapter to automatically add mini TOCs
-\newcommand{\chaptertocheading}{Contents}
+\newcommand{\chaptertocheading}{Chapter contents}
 
 \let\oldchapter=\chapter%
 \renewcommand*{\chapter}{%
@@ -373,7 +374,7 @@
     \setlength{\partopsep}{0pt}
     \setlength{\parsep}{0pt}
     \setlength{\itemsep}{1ex}
-    \setlength{\leftmargin}{2ex}
+    \setlength{\leftmargin}{4ex}
     \setlength{\itemindent}{0pt}
   }
 }{\end{list}}
@@ -450,7 +451,7 @@
 \newcommand{\sidemark}[1]{#1.{\:}}
 
 \newcommand{\marginelement}[2][0]{%
-	\leavevmode\ignorespaces%
+	\leavevmode\unskip%
 	\marginnote{%
 		\sidecapstyle%
 		\setlength{\belowdisplayskip}{0pt}%
@@ -461,6 +462,7 @@
 		\mpjustification%
 		\marginparfont\color{margincolor}#2%
 	}[#1\onelineskip]%
+	\ignorespaces%
 }%
 
 \newcommand{\sidenote}[2][0]{%
@@ -505,8 +507,8 @@
 		\IfValueTF{#2}%
 			{\tempcap[#2]{#3}}%
 			{\tempcap{#3}}%
-		\IfValueT{#4}{\label{#4}}
-	}
+		\IfValueT{#4}{\label{#4}}%
+	}%
 }
 
 \DeclareDocumentCommand{\sidetable}{s o m o m O{0}}% star, shortcap, caption, label, table, location
@@ -527,8 +529,8 @@
 		\IfValueTF{#2}%
 		{\color{margincolor}\tempcap[#2]{#3}}%
 		{\color{margincolor}\tempcap{#3}}%
-		\IfValueT{#4}{\label{#4}}
-	}
+		\IfValueT{#4}{\label{#4}}%
+	}%
 }
 
 \newcolumntype{M}[1]{>{\setlength{\parskip}{0pt}\mpjustification\arraybackslash}p{#1}}
