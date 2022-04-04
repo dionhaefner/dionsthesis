@@ -11,10 +11,10 @@
 
 \newboolean{@minionpro}
 \setboolean{@minionpro}{false}
-\def\@maincolor{}
+\def\@maincolor{CD2A3D}
 
 \DeclareOptionX{minionpro}{\setboolean{@minionpro}{true}}
-\DeclareOptionX{maincolor}[CD2A3D]{\def\@maincolor{#1}}
+\DeclareOptionX{maincolor}{\def\@maincolor{#1}}
 
 % Pass unused options to memoir class
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{memoir}}
@@ -119,6 +119,7 @@
 \definecolor{halfgray}{gray}{0.55}
 \definecolor{darkergray}{gray}{0.05}
 \definecolor{highlight}{HTML}{\@maincolor}
+\definecolor{reddish}{HTML}{CD2A3D}
 \definecolor{greenish}{HTML}{008230}
 \definecolor{blueish}{HTML}{0052A5}
 
@@ -317,7 +318,11 @@
 }%
 \newcommand\ChapS[1]{\oldchapter*{#1}}%
 \newcommand\Chap[2][]{%
+	\if@twoside
 	\cleartoevenpage[\thispagestyle{empty}]
+	\else
+	\clearpage
+	\fi
 	\vspace*{5em}
 	\section*{\chaptertocheading}
 	\startcontents[chapters]
@@ -547,16 +552,25 @@
 % Whole environment
 \newenvironment{whole}{%
   \centering
+  \if@twoside
   \begin{adjustwidth*}{0em}{-\wholemargin}
-  \strictpagechecktrue
-  \checkoddpage
-  \ifoddpage%
-    \RaggedRight
-  \else%
-    \RaggedLeft
-  \fi%
+	\strictpagechecktrue
+	\checkoddpage
+	\ifoddpage%
+		\RaggedRight
+	\else%
+		\RaggedLeft
+	\fi%
+  \else
+  \begin{adjustwidth}{0em}{-\wholemargin}
+	\RaggedRight
+  \fi
 }{%
-  \end{adjustwidth*}
+  \if@twoside
+	\end{adjustwidth*}
+  \else
+	\end{adjustwidth}
+  \fi
 }
 
 \newlength{\foreminusspine}\setlength{\foreminusspine}{\foremargin}

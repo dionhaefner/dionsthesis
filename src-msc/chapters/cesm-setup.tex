@@ -1,0 +1,128 @@
+\chapter{The Community Earth System Model}
+This%
+\sidefigure{The \ac{CESM} model grid in comparison to a regular latitude / longitude grid.}[fig:cesm-grids]%
+{\importpgf{figures/cesm/cesm-grid/}{cesm-grid-1.pgf}\\%
+ \importpgf{figures/cesm/cesm-grid/}{cesm-grid-2.pgf}}%
+chapter gives a brief introduction to \ac{CESM}, the climate model I have used for my simulations, and \ac{POP2}, the ocean model that is implemented in recent \ac{CESM} versions. \ac{CESM} is developed at the National Center of Atmospheric Research (NCAR), and the first version of its predecessor CCSM was released in 1983. \ac{CESM} is widely used by research groups around the world, and simulations were \eg included in several IPCC reports. In my experiments, I have used the current version of \ac{CESM}, \ac{CESM} 1.2.2, which was released during June 2014.
+
+The following sections describe the structure of the dipole grids the solution is calculated on (\secref{sec:cesm-grid}), the initial state and forcing in the \ac{CESM} ocean model (\secref{sec:cesm-initial}), and the anisotropic lateral friction parameterization that is used by default (\secref{sec:cesm-friction}).
+
+\section{Model Grids}
+\label{sec:cesm-grid}
+Since \ac{POP2} (and thus \ac{CESM}) operates only on grids that can be mapped onto a two-dimensional surface, every model grid necessarily contains two singularities, located at the poles in a na\"ive spherical coordinate mapping (\ie \(x = r \cos \theta \cos \phi\), \(y = r \cos\theta \sin\phi\) with radius \(r\), longitude \(\phi\), and latitude \(\theta\)). Since singularities may cause numerical problems during solution or post-processing, the model grid is constructed in such a way that both singularities are located above land masses (Greenland and Antarctica, \cf \figref{fig:cesm-grids}), leading to a smooth ocean grid.
+
+These so-called \emph{dipole grids} were introduced by \citet{madec} and \citet{smith}, and are created through an iterative process where the North Pole is displaced gradually, while the latitude circles are enforced to join a standard Mercator grid at the equator. In the northern hemisphere of a dipole grid, vectors like the velocities \(u\) and \(v\) are generally \emph{not} strictly east-west / north-south aligned; however, for latitudes south of about \ang{60}N, this effect is small.
+
+In the following numerical experiments with \ac{CESM}, two different grids are used:
+%
+\begin{itemize}
+	\item[\grid{x1}:] \(384 \times 320\) grid cells in the horizontal, \(60\) in the vertical. Zonal resolution of \ang{1.125} (\SI{5}{\kilo\metre} at the poles vs. \SI{125}{\kilo\metre} at the equator), meridional between \ang{0.27} (\SI{28}{\kilo\metre}) and \ang{0.5} (\SI{72}{\kilo\metre}), leading to an effective resolution of about \ang{1}. Vertical layer height between \num{10} and \SI{250}{\metre}.
+	\item[\grid{x3}:] \(116 \times 100\) horizontal grid cells. Zonal resolution \ang{3.6} (\SI{17}{\kilo\metre} at the poles vs. \SI{400}{\kilo\metre} at the equator), meridional between \ang{0.6} (\SI{40}{\kilo\metre}) and \ang{2.8} (\SI{380}{\kilo\metre}), effective resolution of about \ang{3}. Vertical layering as in \grid{x1} (see \figref{fig:bathymetry} for bathymetry).
+\end{itemize} 
+%
+Apart from the varying cell spacing, both grids are structurally identical.
+
+Since the computational cost of the \grid{x1}-grid is one order of magnitude higher than that of the \grid{x3} grid, the \ang{3} model is still widely used. Most of my numerical experiments have been carried out on the \grid{x3}-grid (cf.\ \tabref{tab:runs}); only three reference runs have been made with the \grid{x1} version. A comparison of this low-resolution model to the intermediate and high-resolution \ac{CESM} models can be found in \cite{shields}.
+%
+\begin{figure}
+	\centering
+	\importpgf{figures/cesm/bathymetry/}{bathymetry.pgf}
+	\caption{Bathymetry in the \grid{x1} grid.}
+	\label{fig:bathymetry}
+\end{figure}
+
+\section{Initial Conditions \oldand Forcing}
+\label{sec:cesm-initial}
+The initial conditions used in the ocean component of \ac{CESM} are described in \cite{danabasoglu}. Tracer fields like temperature and salinity are initialized with a dataset created by blending data from \cite{levitus} and \cite{steele}, representing mean conditions in January. The ocean is spun-up from rest, \ie all velocities are initially zero.
+
+Although \ac{CESM} is perfectly capable of running fully coupled climate simulations, I have only used the ocean model with a static atmosphere for the experiments in this thesis, since it requires much less computational resources and makes it easier to examine the response of the ocean without worrying about feedback with the atmosphere\sidenote[-2]{Since I am mostly looking at kinematic processes, the findings in this study should be equally valid in a coupled simulation.}. The static atmospheric forcing that is applied is described in \cite{largeforcing} and combines many different data sets from observations. In order to obtain a solution that is as close to the observed present-day values as possible, some parameters such as wind speed and relative humidity have been fine-tuned in certain regions.
+
+\section{Lateral Friction in CESM}
+\label{sec:cesm-friction}
+The%
+%
+\sidefigure[Viscosity parameters \(A\) and \(B\) in \texttt{x3\_default}.]{Viscosity parameters \(A\) and \(B\) in \run{x3_default}. Note the wide Munk layer with viscosities of the order \(\SI{e5}{\metre\squared\per\second}\) and the comparably low background values \(\sim \SI{e3}{\metre\squared\per\second}\).}[fig:default-viscosity]%
+{\importpgf{figures/cesm/viscosity/}{x3_default_lowsfwf.pgf}}%
+%
+actual lateral friction parameterization used in CESM was initially developed by \citet{large} and refined by \citet{smithvisc} and \citet{jochum}. It uses a set of seven different parameters (\tabref{tab:viscpar}), here denoted as \(\nu_A\), \(\nu_B\), \(\nu_M\), and \(\nu_1\) through \(\nu_4\). Apart from regions where \(u\) is not aligned in east-west direction, \ie away from the North pole, the lateral friction term is calculated as (\cite{pop2}):
+%
+\begin{equation}
+\vec{\mathcal{F}}_H = 
+	\begin{pmatrix}
+		Au_{xx} + Bu_{yy} \\
+		Bv_{xx} + Av_{yy} \\
+	\end{pmatrix}
+	\label{eq:friction-cesm}
+\end{equation}  
+%
+with two spatially varying parameters \(A\) and \(B\). From the form of \eqref{eq:friction-cesm}, it becomes clear that \(A\) acts on curvature \emph{parallel} to the flow, while \(B\) acts on curvature \emph{perpendicular} to it. Note that while \(A\) and \(B\) are not strictly viscosities but rather a representation of diffusion through unresolved turbulence (cf.\ \secref{sec:friction-diff}), they are called viscosity parameters throughout \ac{CESM} / \ac{POP2}, so I will refer to these quantities as parallel (\(A\)) and perpendicular (\(B\)) viscosity parameters for the remainder of this study. This anisotropic formulation of the friction term has been chosen to allow for sharp features in the ocean circulation, while minimizing numerical noise (cf. \secref{sec:noise}).
+
+The viscosity parameters \(A\) and \(B\) are calculated in two steps \citep{jochum}; first:
+%
+\begin{align}
+	A' &= \max(A_\text{SGS},A_\text{Munk}) \\
+	B' &= \max(B_\text{SGS},B_\text{Munk}),
+\end{align}
+%
+and finally:
+%
+\begin{align}
+	A &= \min(A',A_\text{cfl}) \\
+	B &= \min(B',B_\text{cfl}).
+\end{align}
+%
+The parameters \(A_\text{SGS}, B_\text{SGS}, A_\text{Munk}, B_\text{Munk}, A_\text{cfl}, B_\text{cfl}\) are calculated as follows:
+%
+\begin{items}
+	\item \(A_\text{cfl}\) and \(B_\text{cfl}\) are the upper bounds imposed by a diffusive stability criterion (\cf \secref{sec:cfl}), and read:\sidenote[-1]{Formulation as in version 1.2.2 of the \ac{CESM} source code.}
+	%
+	\begin{equation}
+	A_\text{cfl} = B_\text{cfl} = \frac{1}{8 \updel t} \left(\updel x^{-2} + \updel y^{-2}\right)^{-1}
+	\end{equation}
+	%
+	with time step size \(\updel t\) and grid spacings \(\updel x\), \(\updel y\).
+	\item \(A_\text{Munk}\) and \(B_\text{Munk}\) impose a lower bound on viscosity depending on the distance to a western boundary. The reasoning for introducing this term is that the characteristic boundary layer length scale in the Munk model is given by \eqref{eq:munkwidth}, \ie \((A_H/\beta)^{1/3}\). Thus, if the chosen viscosity becomes too small, the western boundary layer will not be resolved by the model, which may lead to unphysical behavior. The parameters are defined as
+	%
+	\begin{flalign}
+		\hspace*{-6ex} A_\text{Munk}(\vec{x}) = B_\text{Munk}(\vec{x}) = 
+			\begin{cases}
+				\nu_M \beta \updel x^3 & \text{if } \delta(\vec{x}) \leq \nu_3 \updel x \\
+				\nu_M \beta \updel x^3 \exp\left(-\nu_2(\delta(\vec{x}) - \nu_3 \updel x)\right) & \text{else}
+			\end{cases}
+	\end{flalign}
+	%
+	with \(\delta\) denoting the zonal distance to the nearest western boundary at a position \(\vec{x}\).
+	\item \(A_\text{SGS}\) and \(B_\text{SGS}\) are intended to represent all unresolved sub-grid scale physics. These parameters are chosen as:
+	%
+	\begin{align}
+	A_\text{SGS} &= \nu_A \\
+	B_\text{SGS} &= \nu_B \left( 1 + \nu_1 (1 - \cos(2\theta')) \right),
+	\end{align}
+	%
+	with
+	%
+	\begin{equation}
+	\theta' = \ang{90} \frac{\min(\abs{\theta},\nu_4)}{\nu_4},
+	\end{equation}
+	%
+	such that \(B_\text{SGS} = \nu_B\) at the equator, increasing polewards until hitting the latitude \(\nu_4\), where \(B_\text{SGS} = (1 + 2\nu_1) \nu_B\).
+\end{items}
+%
+Note that \(A_\text{cfl}\) and \(A_\text{Munk}\), and thus \(A\) and \(B\), are dependent on the grid spacings \(\updel x\), \(\updel y\). Hence, all parameters are fine-tuned in a heuristic manner to the resolution at hand. For an overview of the viscosity parameters \(\nu_A\), \(\nu_B\), \(\nu_M\), and \(\nu_1\) through \(\nu_4\) refer to \tabref{tab:viscpar}. The viscosity structure of the \grid{x3} default run is shown in \figref{fig:default-viscosity}, and that of all runs in \secref{sec:viscosity-all}.
+%
+\begin{table}
+	\centering
+	\begin{tabular}{lllll}
+		\multicolumn{3}{c}{Parameter Name} & \multicolumn{2}{c}{Default value} \\ \cmidrule(l){1-3} \cmidrule(l){4-5}
+		Here & \citeauthor{jochum} & \ac{CESM} & \ac{CESM} \grid{x1} & \ac{CESM} \grid{x3} \\ \cmidrule(l){1-5}
+		\(\nu_A\) & \(A_\text{eddy}\) & \texttt{vconst\_1} & \SI{600}{\metre\squared\per\second} & \SI{1000}{\metre\squared\per\second} \\
+		\(\nu_1\) & \(C_2\) & \texttt{vconst\_2} & 0.5 & 24.5 \\
+		\(\nu_M\) & unnamed & \texttt{vconst\_3} & 0.16 & 0.2 \\
+		\(\nu_2\) & unnamed & \texttt{vconst\_4} & \SI{2e-3}{\kilo\metre} & \SI{e-3}{\kilo\metre} \\
+		\(\nu_3\) & unnamed & \texttt{vconst\_5} & 3 & 3 \\
+		\(\nu_B\) & \(B_\text{eddy}\) & \texttt{vconst\_6} & \SI{600}{\metre\squared\per\second} & \SI{1000}{\metre\squared\per\second} \\
+		\(\nu_4\) & \(\Phi_I\) & \texttt{vconst\_7} & \ang{45} & \ang{90}
+	\end{tabular}
+	\caption{Viscosity parameters in the parameterization used in \ac{CESM} and their default values.}
+	\label{tab:viscpar}
+\end{table}

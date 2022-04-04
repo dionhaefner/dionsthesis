@@ -1,0 +1,230 @@
+%% Creator: Matplotlib, PGF backend
+%%
+%% To include the figure in your LaTeX document, write
+%%   \input{<filename>.pgf}
+%%
+%% Make sure the required packages are loaded in your preamble
+%%   \usepackage{pgf}
+%%
+%% Figures using additional raster images can only be included by \input if
+%% they are in the same directory as the main LaTeX file. For loading figures
+%% from other directories you can use the `import` package
+%%   \usepackage{import}
+%% and then include the figures with
+%%   \import{<path to file>}{<filename>.pgf}
+%%
+%% Matplotlib used the following preamble
+%%   \usepackage[T1]{fontenc}
+%%   \usepackage[utf8]{inputenc}
+%%   \usepackage{amsmath}
+%%   \usepackage{MnSymbol}
+%%   \usepackage[lf]{MinionPro}
+%%   \usepackage[lf]{FiraSans}
+%%   \usepackage[lf]{FiraMono}
+%%   \usepackage{siunitx}
+%%
+\begingroup%
+\makeatletter%
+\begin{pgfpicture}%
+\pgfpathrectangle{\pgfpointorigin}{\pgfqpoint{4.570000in}{1.898960in}}%
+\pgfusepath{use as bounding box, clip}%
+\begin{pgfscope}%
+\pgfsetbuttcap%
+\pgfsetmiterjoin%
+\definecolor{currentfill}{rgb}{1.000000,1.000000,1.000000}%
+\pgfsetfillcolor{currentfill}%
+\pgfsetlinewidth{0.000000pt}%
+\definecolor{currentstroke}{rgb}{1.000000,1.000000,1.000000}%
+\pgfsetstrokecolor{currentstroke}%
+\pgfsetdash{}{0pt}%
+\pgfpathmoveto{\pgfqpoint{0.000000in}{0.000000in}}%
+\pgfpathlineto{\pgfqpoint{4.570000in}{0.000000in}}%
+\pgfpathlineto{\pgfqpoint{4.570000in}{1.898960in}}%
+\pgfpathlineto{\pgfqpoint{0.000000in}{1.898960in}}%
+\pgfpathclose%
+\pgfusepath{fill}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetbuttcap%
+\pgfsetmiterjoin%
+\definecolor{currentfill}{rgb}{1.000000,1.000000,1.000000}%
+\pgfsetfillcolor{currentfill}%
+\pgfsetlinewidth{0.000000pt}%
+\definecolor{currentstroke}{rgb}{0.000000,0.000000,0.000000}%
+\pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.000000}%
+\pgfsetdash{}{0pt}%
+\pgfpathmoveto{\pgfqpoint{0.100000in}{0.315097in}}%
+\pgfpathlineto{\pgfqpoint{0.100000in}{1.343243in}}%
+\pgfpathlineto{\pgfqpoint{2.129391in}{1.343243in}}%
+\pgfpathlineto{\pgfqpoint{2.129391in}{0.315097in}}%
+\pgfpathlineto{\pgfqpoint{0.100000in}{0.315097in}}%
+\pgfusepath{fill}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[at=\pgfqpoint{0.100000in}{0.316960in},left,bottom]{\pgfimage[interpolate=true,width=2.030000in,height=1.028000in]{amoc-velocity-x3_lowvisc45-img0.png}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[at=\pgfqpoint{0.100000in}{0.316960in},left,bottom]{\pgfimage[interpolate=true,width=2.014000in,height=1.028000in]{amoc-velocity-x3_lowvisc45-img1.png}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[at=\pgfqpoint{0.100000in}{0.316960in},left,bottom]{\pgfimage[interpolate=true,width=2.030000in,height=1.028000in]{amoc-velocity-x3_lowvisc45-img2.png}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[at=\pgfqpoint{1.420000in}{1.220960in},left,bottom]{\pgfimage[interpolate=true,width=0.204000in,height=0.038000in]{amoc-velocity-x3_lowvisc45-img3.png}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[x=1.722043in,y=1.240429in,left,]{\rmfamily\fontsize{8.000000}{9.600000}\selectfont \SI{5}{\centi\metre\per\second}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfpathrectangle{\pgfqpoint{0.100000in}{0.315097in}}{\pgfqpoint{2.029391in}{1.028147in}} %
+\pgfusepath{clip}%
+\pgfsetbuttcap%
+\pgfsetroundjoin%
+\pgfsetlinewidth{0.501875pt}%
+\definecolor{currentstroke}{rgb}{0.400000,0.400000,0.400000}%
+\pgfsetstrokecolor{currentstroke}%
+\pgfsetdash{{1.000000pt}{4.000000pt}}{0.000000pt}%
+\pgfpathmoveto{\pgfqpoint{0.100000in}{0.829170in}}%
+\pgfpathlineto{\pgfqpoint{2.129391in}{0.829170in}}%
+\pgfusepath{stroke}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetbuttcap%
+\pgfsetmiterjoin%
+\pgfsetlinewidth{0.301125pt}%
+\definecolor{currentstroke}{rgb}{0.000000,0.000000,0.000000}%
+\pgfsetstrokecolor{currentstroke}%
+\pgfsetdash{}{0pt}%
+\pgfpathmoveto{\pgfqpoint{0.100000in}{0.315097in}}%
+\pgfpathlineto{\pgfqpoint{0.100000in}{1.343243in}}%
+\pgfpathlineto{\pgfqpoint{2.129391in}{1.343243in}}%
+\pgfpathlineto{\pgfqpoint{2.129391in}{0.315097in}}%
+\pgfpathlineto{\pgfqpoint{0.100000in}{0.315097in}}%
+\pgfusepath{stroke}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\definecolor{textcolor}{rgb}{0.150000,0.150000,0.150000}%
+\pgfsetstrokecolor{textcolor}%
+\pgfsetfillcolor{textcolor}%
+\pgftext[x=0.353674in,y=0.217874in,,top]{\color{textcolor}\rmfamily\fontsize{9.000000}{10.800000}\selectfont \ang{-50}E}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\definecolor{textcolor}{rgb}{0.150000,0.150000,0.150000}%
+\pgfsetstrokecolor{textcolor}%
+\pgfsetfillcolor{textcolor}%
+\pgftext[x=0.861022in,y=0.217874in,,top]{\color{textcolor}\rmfamily\fontsize{9.000000}{10.800000}\selectfont \ang{-30}E}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\definecolor{textcolor}{rgb}{0.150000,0.150000,0.150000}%
+\pgfsetstrokecolor{textcolor}%
+\pgfsetfillcolor{textcolor}%
+\pgftext[x=1.368369in,y=0.217874in,,top]{\color{textcolor}\rmfamily\fontsize{9.000000}{10.800000}\selectfont \ang{-10}E}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\definecolor{textcolor}{rgb}{0.150000,0.150000,0.150000}%
+\pgfsetstrokecolor{textcolor}%
+\pgfsetfillcolor{textcolor}%
+\pgftext[x=1.875717in,y=0.217874in,,top]{\color{textcolor}\rmfamily\fontsize{9.000000}{10.800000}\selectfont \ang{10}E}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[x=1.114696in,y=1.412688in,,base]{\rmfamily\fontsize{8.000000}{9.600000}\selectfont \(\displaystyle \rho = \SI{1027.2}{\kilo\gram\per\metre\cubed}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetbuttcap%
+\pgfsetmiterjoin%
+\definecolor{currentfill}{rgb}{1.000000,1.000000,1.000000}%
+\pgfsetfillcolor{currentfill}%
+\pgfsetlinewidth{0.000000pt}%
+\definecolor{currentstroke}{rgb}{0.000000,0.000000,0.000000}%
+\pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.000000}%
+\pgfsetdash{}{0pt}%
+\pgfpathmoveto{\pgfqpoint{2.440609in}{0.315097in}}%
+\pgfpathlineto{\pgfqpoint{2.440609in}{1.343243in}}%
+\pgfpathlineto{\pgfqpoint{4.470000in}{1.343243in}}%
+\pgfpathlineto{\pgfqpoint{4.470000in}{0.315097in}}%
+\pgfpathlineto{\pgfqpoint{2.440609in}{0.315097in}}%
+\pgfusepath{fill}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[at=\pgfqpoint{2.440000in}{0.316960in},left,bottom]{\pgfimage[interpolate=true,width=2.030000in,height=1.028000in]{amoc-velocity-x3_lowvisc45-img4.png}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[at=\pgfqpoint{2.440000in}{0.316960in},left,bottom]{\pgfimage[interpolate=true,width=2.014000in,height=1.028000in]{amoc-velocity-x3_lowvisc45-img5.png}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[at=\pgfqpoint{2.440000in}{0.316960in},left,bottom]{\pgfimage[interpolate=true,width=2.030000in,height=1.028000in]{amoc-velocity-x3_lowvisc45-img6.png}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[at=\pgfqpoint{3.760000in}{1.220960in},left,bottom]{\pgfimage[interpolate=true,width=0.204000in,height=0.038000in]{amoc-velocity-x3_lowvisc45-img7.png}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[x=4.062652in,y=1.240429in,left,]{\rmfamily\fontsize{8.000000}{9.600000}\selectfont \SI{5}{\centi\metre\per\second}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfpathrectangle{\pgfqpoint{2.440609in}{0.315097in}}{\pgfqpoint{2.029391in}{1.028147in}} %
+\pgfusepath{clip}%
+\pgfsetbuttcap%
+\pgfsetroundjoin%
+\pgfsetlinewidth{0.501875pt}%
+\definecolor{currentstroke}{rgb}{0.400000,0.400000,0.400000}%
+\pgfsetstrokecolor{currentstroke}%
+\pgfsetdash{{1.000000pt}{4.000000pt}}{0.000000pt}%
+\pgfpathmoveto{\pgfqpoint{2.440609in}{0.829170in}}%
+\pgfpathlineto{\pgfqpoint{4.470000in}{0.829170in}}%
+\pgfusepath{stroke}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetbuttcap%
+\pgfsetmiterjoin%
+\pgfsetlinewidth{0.301125pt}%
+\definecolor{currentstroke}{rgb}{0.000000,0.000000,0.000000}%
+\pgfsetstrokecolor{currentstroke}%
+\pgfsetdash{}{0pt}%
+\pgfpathmoveto{\pgfqpoint{2.440609in}{0.315097in}}%
+\pgfpathlineto{\pgfqpoint{2.440609in}{1.343243in}}%
+\pgfpathlineto{\pgfqpoint{4.470000in}{1.343243in}}%
+\pgfpathlineto{\pgfqpoint{4.470000in}{0.315097in}}%
+\pgfpathlineto{\pgfqpoint{2.440609in}{0.315097in}}%
+\pgfusepath{stroke}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\definecolor{textcolor}{rgb}{0.150000,0.150000,0.150000}%
+\pgfsetstrokecolor{textcolor}%
+\pgfsetfillcolor{textcolor}%
+\pgftext[x=2.694283in,y=0.217874in,,top]{\color{textcolor}\rmfamily\fontsize{9.000000}{10.800000}\selectfont \ang{-50}E}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\definecolor{textcolor}{rgb}{0.150000,0.150000,0.150000}%
+\pgfsetstrokecolor{textcolor}%
+\pgfsetfillcolor{textcolor}%
+\pgftext[x=3.201631in,y=0.217874in,,top]{\color{textcolor}\rmfamily\fontsize{9.000000}{10.800000}\selectfont \ang{-30}E}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\definecolor{textcolor}{rgb}{0.150000,0.150000,0.150000}%
+\pgfsetstrokecolor{textcolor}%
+\pgfsetfillcolor{textcolor}%
+\pgftext[x=3.708978in,y=0.217874in,,top]{\color{textcolor}\rmfamily\fontsize{9.000000}{10.800000}\selectfont \ang{-10}E}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\definecolor{textcolor}{rgb}{0.150000,0.150000,0.150000}%
+\pgfsetstrokecolor{textcolor}%
+\pgfsetfillcolor{textcolor}%
+\pgftext[x=4.216326in,y=0.217874in,,top]{\color{textcolor}\rmfamily\fontsize{9.000000}{10.800000}\selectfont \ang{10}E}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\definecolor{textcolor}{rgb}{0.150000,0.150000,0.150000}%
+\pgfsetstrokecolor{textcolor}%
+\pgfsetfillcolor{textcolor}%
+\pgftext[x=2.343387in,y=0.829170in,right,]{\color{textcolor}\rmfamily\fontsize{9.000000}{10.800000}\selectfont \ang{0}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[x=3.455304in,y=1.412688in,,base]{\rmfamily\fontsize{8.000000}{9.600000}\selectfont \(\displaystyle \rho = \SI{1027.8}{\kilo\gram\per\metre\cubed}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[x=2.285000in,y=1.798960in,,top]{\rmfamily\fontsize{11.000000}{13.200000}\selectfont \texttt{x3\_lowvisc45}}%
+\end{pgfscope}%
+\end{pgfpicture}%
+\makeatother%
+\endgroup%

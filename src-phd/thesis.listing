@@ -1,0 +1,36 @@
+			diffCoeffX = FaceVariable(mesh=mesh, rank=1)
+			diffCoeffX[0] = A.faceValue
+			diffCoeffX[1] = B.faceValue
+			diffCoeffY = FaceVariable(mesh=mesh, rank=1)
+			diffCoeffY[0] = B.faceValue
+			diffCoeffY[1] = A.faceValue
+			
+			fDiv = faceVelocity.divergence
+			waterSourceInterior = \
+			  (ImplicitSourceTerm(coeff=1.,var=height)-1) / \
+			  dampening_scale	
+
+			xVelocityEq = TransientTerm(var=xVelocity) \
+			+ ConvectionTerm(coeff=fVelocity,var=xVelocity) \
+			- ImplicitSourceTerm(coeff=fDiv, var=xVelocity) \
+			- ImplicitSourceTerm(var=yVelocity,coeff=.5*mesh.y) \
+			== \
+			- height.grad.dot((1.,0.)) \
+			+ DiffusionTerm(diffCoeffX,var=xVelocity)
+			
+			yVelocityEq = TransientTerm(var=yVelocity) \
+			+ ConvectionTerm(coeff=fVelocity,var=yVelocity) \
+			- ImplicitSourceTerm(coeff=fDiv, var=yVelocity) \
+			+ ImplicitSourceTerm(var=xVelocity,coeff=.5*mesh.y) \
+			== \
+			- height.grad.dot((0.,1.)) \
+			+ DiffusionTerm(diffCoeffY,var=yVelocity)
+			
+			heightEq = TransientTerm(var=height) \
+			+ ConvectionTerm(coeff=fVelocity, var=height) \
+			== \
+			waterSourceBoundary - waterSourceInterior
+			
+			# couple equations
+			swEquations = xVelocityEq & yVelocityEq & heightEq
+		

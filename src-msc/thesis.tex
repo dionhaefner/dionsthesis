@@ -1,0 +1,130 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Master's Thesis
+% Dion Häfner
+%
+% Based on uiothesis and classicthesis
+%
+% Compile with ``pdflatex -shell-escape "thesis".tex``
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-----------------------------------------------
+%   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%-----------------------------------------------
+
+\documentclass[a4paper,11pt,twoside,openany,minionpro]{dionsthesis}
+
+\makeatletter
+\newcommand{\blx@noerroretextools}{\relax}
+\makeatother
+
+% Language setup
+\usepackage[german,american]{babel}
+\setquotestyle{american}
+
+% Additional preamble files
+\input{preamble/pgfcache}
+\input{preamble/listings}
+\input{preamble/misc}
+
+\usepackage{morewrites}
+
+\graphicspath{{figures/}}
+
+\hyphenation{pa-ra-me-te-ri-za-tion vis-cosi-ty sver-drups dions-thesis}
+
+\bibliography{references.bib}
+
+% draft packages, remove for final version
+% \usepackage{todonotes}
+
+%-----------------------------------------------
+
+\begin{document}
+\chapterstyle{margin}
+
+% check alphabet length
+%\newlength{\alphabetlength}
+%\settowidth{\alphabetlength}{abcdefghijklmnopqrstuvwxyz}
+%\the\alphabetlength
+
+%-----------------------------------------------
+%   FRONT MATTER
+%-----------------------------------------------
+
+\frontmatter
+\pdfbookmark[-1]{Front matter}{frontmatter}
+\pagestyle{empty}
+\pagenumbering{gobble}
+\hypersetup{pageanchor=false}
+\include{frontmatter/titlepage}
+\clearpage
+\include{frontmatter/titleback}
+\cleardoublepage
+\pagenumbering{roman}
+\pagestyle{simple}
+\include{frontmatter/acknowledgments}
+\cleartoevenpage
+\include{frontmatter/abstract}
+\cleardoublepage
+\include{frontmatter/contents}
+\include{frontmatter/notation}
+
+\cleardoublepage
+
+%-----------------------------------------------
+%   MAIN MATTER
+%-----------------------------------------------
+
+\mainmatter
+\bookmarksetup{startatroot}
+\pagenumbering{arabic}
+\hypersetup{pageanchor=True}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+
+%-----------------------------------------------
+%   INTRODUCTION
+%-----------------------------------------------
+
+\part{Setting the Stage}
+\include{chapters/preface}
+\include{chapters/physics}
+\include{chapters/cesm-setup}
+
+%-----------------------------------------------
+%   BODY
+%-----------------------------------------------
+
+\part{Frictional Control of Cross-Equatorial Flow}
+\include{chapters/cesm-runs}
+\include{chapters/analysis}
+\include{chapters/outro}
+
+%-----------------------------------------------
+%   APPENDIX
+%-----------------------------------------------
+
+\appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\part*{Appendices}
+\include{backmatter/appendix}
+
+
+%-----------------------------------------------
+%   BACK MATTER
+%-----------------------------------------------
+\backmatter
+\bookmarksetup{startatroot}
+\include{backmatter/bibliography}
+\cleardoublepage
+\pdfbookmark[-1]{Back matter}{backmatter}
+\pagestyle{empty}
+\include{backmatter/colophon}
+\include{backmatter/declaration}
+
+%-----------------------------------------------
+
+\end{document}

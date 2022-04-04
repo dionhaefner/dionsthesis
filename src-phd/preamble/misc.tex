@@ -1,0 +1,47 @@
+\DefineBibliographyStrings{english}{%
+	backrefpage = {Cited on p.~},
+	backrefpages = {Cited on pp.~}
+}
+
+\newcommand{\figref}[1]{Fig.\ \ref{#1}}
+\newcommand{\tabref}[1]{Table \ref{#1}}
+\newcommand{\secref}[1]{\textsection\,\ref{#1}}
+\newcommand{\chapref}[1]{Chapter \ref{#1}}
+\newcommand{\appendixref}[1]{Appendix \ref{#1}}
+\newcommand{\listingref}[1]{Code Listing \ref{#1}}
+
+\MakeRobust{\eqref}
+\MakeRobust{\figref}
+\MakeRobust{\tabref}
+\MakeRobust{\chapref}
+\MakeRobust{\appendixref}
+\MakeRobust{\listingref}
+
+\usepackage{xpunctuate}
+
+\newcommand{\ie}{i.\,e\xperiodcomma}
+\newcommand{\Ie}{I.\,e\xperiodcomma}
+\newcommand{\eg}{e.\,g\xperiod}
+\newcommand{\Eg}{E.\,g\xperiod}
+\newcommand{\cf}{cf\xperiod}
+\newcommand{\Cf}{Cf\xperiod}
+
+\newcommand{\rn}[1]{%
+	\textup{\uppercase\expandafter{\romannumeral#1}}%
+}
+
+\newcommand{\orderof}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\curl}{\operatorname{curl}}
+\newcommand{\divergence}{\operatorname{div}}
+\newcommand{\dx}[1]{\;\mathrm{d}#1}
+\newcommand{\Ddx}[1][]{\frac{\mathrm{D}#1}{\mathrm{d}t}}
+\newcommand{\mean}[1]{\langle #1 \rangle}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\updel}{\mathop{}\!\upDelta}
+
+\newcommand{\work}[1]{\textsl{\enquote{#1}}}
+
+\DeclareFieldFormat*{citetitle}{\work{#1}}
+\newcommand{\citebook}[1]{\citetitle{#1} \citep{#1}}
+
+\sisetup{binary-units=true}

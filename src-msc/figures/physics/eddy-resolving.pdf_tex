@@ -1,0 +1,74 @@
+%% Creator: Inkscape inkscape 0.91, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'eddy-resolving.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{340.15748031bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.5)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{eddy-resolving.pdf}}%
+    \put(0.31331145,0.03218973){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 90°W}}}%
+    \put(0.43658374,0.03218973){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 0°}}}%
+    \put(0.51885926,0.03218973){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 90°E}}}%
+    \put(0.05695291,0.10144365){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 60°S}}}%
+    \put(0.00011254,0.17212158){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 30°S}}}%
+    \put(0.01970387,0.25353435){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 0°}}}%
+    \put(0.00011254,0.33842264){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 30°N}}}%
+    \put(0.06236289,0.41076358){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 60°N}}}%
+    \put(0.99420346,0.14153688){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{\footnotesize Surface speed [$\si{\centi\metre\per\second}$]}}}}%
+    \put(0.92329736,0.05654236){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 0}}}%
+    \put(0.92296721,0.09479164){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 5}}}%
+    \put(0.92200545,0.13220936){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 10}}}%
+    \put(0.92200545,0.16962708){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 15}}}%
+    \put(0.92308204,0.2070448){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 20}}}%
+    \put(0.92308204,0.24446252){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 25}}}%
+    \put(0.92299592,0.28271182){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 30}}}%
+    \put(0.92299592,0.32096101){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 35}}}%
+    \put(0.92379977,0.35812589){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 40}}}%
+    \put(0.92379977,0.39496496){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 45}}}%
+    \put(0.92296721,0.43321423){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\footnotesize 50}}}%
+  \end{picture}%
+\endgroup%

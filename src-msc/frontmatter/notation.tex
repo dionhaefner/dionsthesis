@@ -1,0 +1,58 @@
+\refstepcounter{dummy}
+\pdfbookmark[1]{Notation}{notation}
+\chapter*{Mathematical Notation}
+\label{front:notation}
+
+Throughout this document, the following conventions regarding mathematical notation are being assumed, unless stated otherwise:
+
+\paragraph{General}
+\begin{items}
+	\item Vectorial quantities are marked with an arrow (\(\vec{u}\)). 
+	\item A dot \(\cdot\) between vectors denotes a scalar product, and a cross \(\times\) the vector product.
+	\item Unit vectors carry a caret (\(\hat{x}\)).
+\end{items}
+
+\paragraph{Coordinate Systems}
+\begin{items}
+	\item In%
+		\sidefigure*{}{\resizebox{.9\marginparwidth}{!}{\input{figures/frontmatter/spherical.tex}}}[2]%
+	Cartesian coordinates, the directions are denoted as
+	\begin{equation} 
+	\hat{x} = \left( \begin{matrix} 1 \\ 0 \\ 0 \end{matrix} \right), \quad
+	\hat{y} = \left( \begin{matrix} 0 \\ 1 \\ 0 \end{matrix} \right), \quad
+	\hat{z} = \left( \begin{matrix} 0 \\ 0 \\ 1 \end{matrix} \right).
+	\end{equation}
+	Following the convention in Geophysics, \(x\) points in zonal direction, \(y\) in meridional direction, and \(z\) into the vertical direction (skyward). Components of the velocity \(\vec{u}\) in \(x\), \(y\), and \(z\)-direction are denoted as \(u\), \(v\), and \(w\), respectively.
+	\item In spherical surface coordinates, the zonal coordinate is denoted as \(\phi\) (longitude), and the meridional coordinate as \(\theta\) (latitude).
+\end{items}
+
+\paragraph{Differentiation}
+\begin{items}
+	\item The partial derivative of a quantity \(h\) is written as
+	\begin{equation} \frac{\partial h}{\partial \phi} \equiv h_\phi. \end{equation}
+	\item It is often necessary to calculate the derivative of a quantity \emph{along a streamline}. This \emph{material derivative} is denoted as
+	%
+	\begin{equation} \Ddx q = \shortunderbrace{q_t}_{\mathclap{\text{partial derivative}}} + \overbrace{\vec{u} \cdot \nabla q}^{\mathclap{\text{advection}}}. \end{equation}
+	%
+	\item The Nabla operator \(\nabla\), as usual in vector calculus, is defined as
+	\begin{equation} \nabla = \begin{pmatrix} \partial/(\partial x) \\ \partial/(\partial y) \\ \partial/(\partial z) \end{pmatrix}. \end{equation}
+	%
+	Hence, \(\nabla f\) denotes the gradient of the scalar field \(f\), and \(\nabla \cdot \vec{u}\) and \(\nabla \times \vec{u}\) the divergence and curl of a vector field \(\vec{u}\), respectively.
+	\item The horizontal equivalent of \(\nabla\) is denoted as \(\nabla_H\) and only operates on the \(x\) and \(y\)-directions of a vector field. The horizontal divergence and curl thus read
+	\begin{alignat}{3}
+	\divergence_H (\vec{u}) &= \nabla_H \cdot \vec{u} &&= u_x + v_y \\
+	\curl_H (\vec{u}) &= \nabla_H \times \vec{u} &&= v_x - u_y.
+	\end{alignat}
+	\item The Jacobian determinant\sidenote{For the sake of brevity just refered to as \enquote{Jacobian}.} \(J(a,b)\) of two scalar fields \(a\), \(b\) is defined as
+	\begin{equation} J(a,b) := a_x b_y - a_y b_x. \end{equation}
+\end{items}
+
+\paragraph{Scale Analysis}
+\begin{items}
+	\item The operator \(\orderof{x}\) is used several times during scale analyses, and simply means \enquote{order of} --- it maps a physical quantity \(x\) to a corresponding typical scale\sidenote[-2]{These scales are chosen in a heuristic manner, providing motivations rather than formal derivations. While their exact value can be argued, their order of magnitude usually cannot, allowing the comparison of terms that vary by several orders of magnitude.}.
+\end{items}
+
+\paragraph{Other}
+\begin{items}
+	\item The temporal mean value of a quantity \(u\) is denoted as \(\mean{u}\).
+\end{items}

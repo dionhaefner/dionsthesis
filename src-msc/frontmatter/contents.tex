@@ -1,0 +1,71 @@
+%*******************************************************
+% Table of Contents
+%*******************************************************
+\refstepcounter{dummy}
+\pdfbookmark[1]{\contentsname}{tableofcontents}
+\tableofcontents*
+
+\clearpage
+
+%*******************************************************
+% List of Figures, Tables, Listings, Acronyms, Notation
+%*******************************************************
+
+\begingroup 
+
+%*******************************************************
+% List of Figures
+%*******************************************************  
+\refstepcounter{dummy}
+\pdfbookmark[1]{\listfigurename}{lof}
+\newlistof{listoffigures}{lof}{\listfigurename}
+\listoffigures*
+
+\clearpage
+
+%*******************************************************
+% List of Tables
+%*******************************************************
+\refstepcounter{dummy}
+\pdfbookmark[1]{\listtablename}{lot}
+\newlistof{listoftables}{lot}{\listtablename}
+\listoftables*
+
+\vspace*{2.5cm}
+%*******************************************************
+% List of Listings
+%*******************************************************      
+\refstepcounter{dummy}
+\pdfbookmark[1]{\listlistingsname}{lol}
+\newlistof{listoflistings}{lol}{\listlistingsname}
+\listoflistings*
+
+\clearpage
+
+%*******************************************************
+% Acronyms
+%*******************************************************
+\refstepcounter{dummy}
+\pdfbookmark[1]{Acronyms}{acronyms}
+\chapter*{Acronyms}
+\begin{acronym}[NGCUCX]
+	\acro{PV}{potential vorticity}
+	\acro{CESM}{Community Earth System Model}
+	\acro{POP2}{Parallel Ocean Program 2}
+	\acro{GCM}{General Circulation Model}
+	\acro{MOC}{Meridional Overturning Circulation}
+	\acro{AMOC}{Atlantic Meridional Overturning Circulation}
+	\acro{ITF}{Indonesian Throughflow}
+	\acro{ENSO}{El Ni\~{n}o--Southern Oscillation}
+	\acro{NADW}{North Atlantic Deep Water}
+	\acro{ACC}{Antarctic Circumpolar Current}
+	\acro{MC}{Mindanao Current}
+	\acro{NECC}{North-Equatorial Countercurrent}
+	\acro{NEC}{North-Equatorial Current}
+	\acro{SEC}{South-Equatorial Current}
+	\acro{NGCUC}{New Guinea Coastal Undercurrent}
+	\acro{BSF}{barotropic stream function}
+	\acro{ODE}{ordinary differential equation}
+	\acro{PDE}{partial differential equation}
+\end{acronym}   
+\endgroup
