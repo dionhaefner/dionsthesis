@@ -1,0 +1,52 @@
+% custom headings for paper pages
+\usepackage{tikz}
+
+\definecolor{paperheadingcolor}{HTML}{2B3D60}
+
+% \newcounter{includepage}
+
+\newif\iftwoside
+\makeatletter
+\if@twoside
+\twosidetrue
+\else
+\twosidefalse
+\fi
+
+
+\def\paperheading#1{
+  \thispagestyle{empty}
+  % \stepcounter{includepage}
+  \begin{tikzpicture}[overlay, remember picture]
+    \draw let \p1 = (current page.west), \p2 = (current page.east) in
+      node[minimum width=\x2-\x1, minimum height=10mm, rectangle, color=white, fill=paperheadingcolor, anchor=north west, align=left, text width=\x2-\x1] at ($(current page.north west) + (0cm, -5mm)$) {};
+      \draw let \p1 = (current page.west), \p2 = (current page.east) in
+      node[minimum width=\x2-\x1, minimum height=4mm, rectangle, color=white, fill=paperheadingcolor, anchor=north west, align=left, text width=\x2-\x1] at ($(current page.south west) + (0cm, 6mm)$) {};
+    \iftwoside
+      \strictpagechecktrue
+      \checkoddpage
+      \ifoddpage
+      \draw let \p1 = (current page.west), \p2 = (current page.east) in
+          node[minimum height=10mm, color=white, anchor=north east, align=right] at ($(current page.north east) + (-1cm, -5mm)$) {\spacedlowsmallcaps{#1} \hspace{1.2ex}|\hspace{0.6ex}\thepage};
+      \else
+        \draw let \p1 = (current page.west), \p2 = (current page.east) in
+        node[minimum height=10mm, color=white, anchor=north west, align=left] at ($(current page.north west) + (1cm, -5mm)$) {\thepage\hspace{0.6ex}|\hspace{1.2ex} \spacedlowsmallcaps{#1}};
+      \fi
+    \else
+      \draw let \p1 = (current page.west), \p2 = (current page.east) in
+      node[minimum height=10mm, color=white, anchor=north west, align=left] at ($(current page.north west) + (1cm, -5mm)$) {\thepage\hspace{0.6ex}|\hspace{1.2ex} \spacedlowsmallcaps{#1}};
+    \fi
+  \end{tikzpicture}
+}
+
+\newcommand{\includepaper}[3][]{
+  \iftwoside
+  \cleartoevenpage[\thispagestyle{empty}]
+  \includepdf[pages=-,scale=1,pagecommand={\paperheading{#2}},offset=5mm -10mm,#1]{#3}
+  \else
+  \clearpage
+  \includepdf[pages=-,scale=1,pagecommand={\paperheading{#2}},offset=0mm -10mm,#1]{#3}
+  \fi
+  % \addcontentsline{toc}{chapter}{#2}
+  % \setcounter{includepage}{0}
+}

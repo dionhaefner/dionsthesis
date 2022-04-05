@@ -1,0 +1,1 @@
+../../dionsthesis.cls
